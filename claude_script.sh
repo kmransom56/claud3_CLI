@@ -17,7 +17,7 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" &>/dev/null && pwd)"
 
 # Activate virtual environment
 echo "Activating virtual environment..."
-source "$SCRIPT_DIR/venv/bin/activate" || { echo "Failed to activate virtual environment."; exit 1; }
+source "/home/keith/.venv/bin/activate" || { echo "Failed to activate virtual environment."; exit 1; }
 
 # Check if the virtual environment is activated
 if [ -z "$VIRTUAL_ENV" ]; then
@@ -26,9 +26,10 @@ if [ -z "$VIRTUAL_ENV" ]; then
 fi
 
 # Install anthropic package if not installed
+     uv pip install anthropic
 if ! python -c 'import anthropic' &> /dev/null; then
     echo "anthropic package not found. Installing..."
-    pip install anthropic || { echo "Failed to install anthropic package."; exit 1; }
+    uv pip install anthropic || { echo "Failed to install anthropic package."; exit 1; }
 fi
 
 # Run the Python script with arguments
